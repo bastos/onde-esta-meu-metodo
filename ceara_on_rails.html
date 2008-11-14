@@ -1,0 +1,137 @@
+<html><head><meta content="text/html; charset=utf-8" http-equiv="Content-Type"/><meta content="slideshow" name="defaultView"/><link type="text/css" rel="stylesheet" href="assets/outline.css" media="screen" id="outlineStyle"/><link type="text/css" rel="stylesheet" href="/print.css" media="print" id="slideStyle"/><link type="text/css" rel="stylesheet" href="assets/style.css" media="projection" id="slideProj"/><link type="text/css" rel="stylesheet" href="assets/prettify.css" media="screen"/><script type="text/javascript" src="assets/jquery.js"></script><script type="text/javascript" src="assets/slides.js"></script><script type="text/javascript" src="assets/gary.js"></script><title>Ruby - Onde est&#225; meu m&#233;todo? - Cear&#225; on Rails</title></head><body><div id="layout"><div id="controls"></div><div id="currentSlide"></div><div id="header"></div><div id="footer"><h1>Ruby - Onde est&#225; meu m&#233;todo? - Cear&#225; on Rails</h1></div><div id="microsoft">Microsoft's Internet Explorer browser
+            has no built-in vector graphics machinery
+             required for "loss-free" gradient background themes.</div></div><div class="presentation"><div class="slide"><div class="container"><center><h1 style="margin-top:25%">Onde est&#225; meu m&#233;todo?</h1><h3>Ruby, M&#225;gica, Metaprograma&#231;&#227;o e divers&#227;o!</h3></center></div></div><div class="slide"><div class="container"><h1>Quem sou eu?</h1><h2>Tiago Bastos</h2><h3>%w{Estudante Desenvolvedor Python PHP Ruby *}.each {|a| puts a}</h3></div></div><div class="slide"><div class="container"><center><h1>As coisas n&#227;o precisam ser complicadas!</h1><img alt="http://xkcd.com/457/" src="assets/frustration.png"/></center></div></div><div class="slide"><div class="container"><h1>Operadores s&#227;o syntax sugar</h1><div class="highlight"><pre><span class="k">class</span> <span class="nc">Foo</span>
+  <span class="k">def</span> <span class="nf">initialize</span>
+    <span class="vi">@fools</span> <span class="o">=</span> <span class="o">[]</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="nf">&lt;&lt;</span> <span class="n">a</span>
+    <span class="vi">@fools</span> <span class="o">&lt;&lt;</span> <span class="n">a</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="nf">*</span> <span class="n">i</span>
+    <span class="n">i</span><span class="o">.</span><span class="n">times</span> <span class="p">{</span> <span class="nb">puts</span> <span class="n">show_me_the_foo</span> <span class="p">}</span>
+  <span class="k">end</span>
+  
+  <span class="k">def</span> <span class="nf">show_me_the_foo</span>
+    <span class="vi">@fools</span><span class="o">.</span><span class="n">each</span> <span class="p">{</span><span class="o">|</span><span class="n">foo</span><span class="o">|</span> <span class="nb">puts</span> <span class="n">foo</span><span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div></div></div><div class="slide"><div class="container"><h1>Exemplo</h1><div class="highlight"><pre><span class="n">foo_box</span> <span class="o">=</span> <span class="no">Foo</span><span class="o">.</span><span class="n">new</span>
+<span class="n">foo_box</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;LOL&quot;</span>
+<span class="n">foo_box</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;OMG&quot;</span>
+<span class="n">foo_box</span><span class="o">.</span><span class="n">show_me_the_foo</span>
+<span class="n">foo_box</span> <span class="o">*</span> <span class="mi">10</span>
+</pre></div></div></div><div class="slide"><div class="container"><h1>Monkey Patching</h1><h3>Nada precisa ser t&#227;o dif&#237;cil de se abrir, nem mesmo classes</h3><div class="highlight"><pre><span class="k">class</span> <span class="nc">String</span>
+ <span class="k">def</span> <span class="nf">lolize</span>
+   <span class="s2">&quot;LOL </span><span class="si">#{</span><span class="nb">self</span><span class="si">}</span><span class="s2"> LOL&quot;</span>
+ <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="s2">&quot;Ruby!&quot;</span><span class="o">.</span><span class="n">lolize</span>
+</pre></div></div></div><div class="slide"><div class="container"><h1>Mixins</h1><h2></h2><div class="highlight"><pre><span class="k">module</span> <span class="nn">Rubist</span><span class="p">;</span><span class="k">end</span>
+<span class="k">module</span> <span class="nn">Snaker</span><span class="p">;</span><span class="k">end</span>
+<span class="k">module</span> <span class="nn">Sysadmin</span><span class="p">;</span><span class="k">end</span>
+<span class="k">module</span> <span class="nn">JabbaTheHutt</span><span class="p">;</span><span class="k">end</span>
+<span class="k">class</span> <span class="nc">Programmer</span><span class="p">;</span><span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Me</span> <span class="o">&lt;</span> <span class="no">Programmer</span>
+ <span class="kp">include</span> <span class="no">Snaker</span>
+ <span class="kp">include</span> <span class="no">Rubist</span>
+<span class="k">end</span>
+<span class="k">class</span> <span class="nc">You</span> <span class="o">&lt;</span> <span class="no">Programmer</span>
+ <span class="kp">include</span> <span class="no">Snaker</span>
+ <span class="kp">include</span> <span class="no">Sysadmin</span>  
+<span class="k">end</span>
+<span class="k">class</span> <span class="nc">UnHappy</span> <span class="o">&lt;</span> <span class="no">Programmer</span>
+ <span class="kp">include</span> <span class="no">JabbaTheHutt</span>
+<span class="k">end</span>
+</pre></div></div></div><div class="slide"><div class="container"><h1>Blocos!</h1><div class="highlight"><pre><span class="no">LoLCat</span> <span class="k">do</span>
+   <span class="n">say</span> <span class="s2">&quot;I haz Rubyz&quot;</span>
+<span class="k">end</span>
+</pre></div></div></div><div class="slide"><div class="container"><h1>Sinatra!</h1><div class="highlight"><pre><span class="nb">require</span> <span class="s1">&#39;sinatra&#39;</span>
+
+<span class="n">get</span> <span class="s1">&#39;/about&#39;</span> <span class="k">do</span>
+  <span class="s2">&quot;Sinatra, um minimalista webframework usando blocos!&quot;</span>
+<span class="k">end</span>
+</pre></div></div></div><div class="slide"><div class="container"><h1>yield</h1><h3>Blocos possuem o contexto de onde foram criadas</h3><div class="highlight"><pre><span class="k">class</span> <span class="nc">Cat</span>
+  <span class="k">def</span> <span class="nf">initialize</span>
+    <span class="k">yield</span>
+  <span class="k">end</span>
+  <span class="k">def</span> <span class="nf">say</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="n">str</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div><p>undefined method `say' for main:Object (NoMethodError)</p></div></div><div class="slide"><div class="container"><h1>eval is not evil</h1><h3>Blocos + eval = DSL</h3><div class="highlight"><pre><span class="k">class</span> <span class="nc">Cat</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="nb">instance_eval</span><span class="p">(</span><span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="k">def</span> <span class="nf">say</span><span class="p">(</span><span class="n">str</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="n">str</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+ 
+</pre></div></div></div><div class="slide"><div class="container"><h1>Domain Specific Language</h1><h3>Blocos + eval = DSL</h3><center><div class="highlight"><pre><span class="no">Cat</span><span class="o">.</span><span class="n">new</span> <span class="p">{</span> <span class="n">say</span> <span class="s2">&quot;Eval is not evil!&quot;</span> <span class="p">}</span>
+</pre></div></center></div></div><div class="slide"><div class="container"><h1>Estes slides foram feitos com uma DSL: Gary</h1><div class="highlight"><pre><span class="n">presentation</span> <span class="ss">:title</span> <span class="o">=&gt;</span> <span class="s2">&quot;My First Presentation&quot;</span> <span class="k">do</span>
+    <span class="n">slide</span>  <span class="k">do</span>
+     <span class="n">h1</span> <span class="s2">&quot;Just a test&quot;</span>
+      <span class="n">code</span> <span class="s2">&quot;def a; a+a;end&quot;</span>
+    <span class="k">end</span>
+
+    <span class="n">slide</span>  <span class="k">do</span>
+      <span class="n">h1</span> <span class="s2">&quot;Bye&quot;</span>
+      <span class="n">center</span> <span class="p">{</span> <span class="n">h3</span> <span class="s2">&quot;Bye people!&quot;</span> <span class="p">}</span>
+    <span class="k">end</span>
+<span class="k">end</span>
+</pre></div></div></div><div class="slide"><div class="container"><h1>BOT</h1><div class="highlight"><pre><span class="n">config</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+  <span class="n">c</span><span class="o">.</span><span class="n">nick</span> <span class="o">=</span> <span class="s2">&quot;echo_bot&quot;</span>
+  <span class="n">c</span><span class="o">.</span><span class="n">server</span> <span class="o">=</span> <span class="s2">&quot;irc.freenode.net&quot;</span>
+  <span class="n">c</span><span class="o">.</span><span class="n">port</span> <span class="o">=</span> <span class="mi">6667</span>
+<span class="k">end</span>
+ 
+<span class="n">on</span> <span class="ss">:connect</span> <span class="k">do</span>
+  <span class="n">join</span> <span class="s2">&quot;#Awesome_Channel&quot;</span>
+<span class="k">end</span>
+ 
+<span class="n">on</span> <span class="ss">:channel</span><span class="p">,</span><span class="sr"> /.*/</span> <span class="k">do</span>
+  <span class="n">msg</span> <span class="n">channel</span><span class="p">,</span> <span class="n">message</span>
+<span class="k">end</span>
+</pre></div></div></div><div class="slide"><div class="container"><h1>Onde est&#225; meu m&#233;todo!?</h1><div class="highlight"><pre><span class="k">class</span> <span class="nc">Cat</span> 
+  <span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">m</span><span class="o">.</span><span class="n">to_s</span> <span class="o">=~</span><span class="sr">/^gimme_(.+)_burgerz/</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="sr">/^gimme_(.+)_burgerz/</span><span class="p">)</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+      <span class="nb">puts</span> <span class="s2">&quot;I Haz </span><span class="si">#{</span><span class="n">x</span><span class="o">.</span><span class="n">capitalize</span><span class="si">}</span><span class="s2"> burgerz&quot;</span> 
+    <span class="k">else</span>
+      <span class="k">super</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">Cat</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">gimme_ten_burgers</span>
+</pre></div></div></div><div class="slide"><div class="container"><h1 style="margin-top:30%">I Haz Ten burgerz</h1></div></div><div class="slide"><div class="container"><h1 style="margin-top:25%">Lindo!</h1><h1 style="margin-top:25%">Mas e ai?</h1></div></div><div class="slide"><div class="container"><h1>Ai que voc&#234; entende o ActiveRecord!</h1><div class="highlight"><pre><span class="no">Dummy</span><span class="o">.</span><span class="n">find_by_name</span><span class="p">(</span><span class="s1">&#39;Tiago&#39;</span><span class="p">)</span>
+</pre></div><div class="highlight"><pre><span class="no">Dummy</span><span class="o">.</span><span class="n">find_by_name_and_age</span><span class="p">(</span><span class="s1">&#39;Tiago&#39;</span><span class="p">,</span> <span class="mi">22</span><span class="p">)</span>
+</pre></div></div></div><div class="slide"><div class="container"><h1>Ei Classe quero o fale</h1><div class="highlight"><pre><span class="k">class</span> <span class="nc">DHH</span>
+ <span class="k">def</span> <span class="nf">fale</span>
+  <span class="nb">puts</span> <span class="s1">&#39;FUCK YOU&#39;</span>
+ <span class="k">end</span>
+ <span class="k">def</span> <span class="nf">exemplo</span>
+   <span class="nb">send</span><span class="p">(</span><span class="ss">:fale</span><span class="p">)</span>
+ <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">DHH</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">exemplo</span>
+</pre></div></div></div><div class="slide"><div class="container"><h1>Podemos simplesmente criar um alias para o m&#233;todo antigo</h1><h2>E redeclarar</h2><div class="highlight"><pre><span class="k">class</span> <span class="nc">DHH</span>
+  <span class="n">alias_method</span> <span class="ss">:antigo</span><span class="p">,</span> <span class="ss">:exemplo</span>
+  <span class="k">def</span> <span class="nf">exemplo</span>
+    <span class="nb">puts</span> <span class="s2">&quot;:D&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+<span class="c1"># O novo</span>
+<span class="no">DHH</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">exemplo</span>
+<span class="c1"># O antigo!</span>
+<span class="no">DHH</span><span class="o">.</span><span class="n">new</span><span class="o">.</span><span class="n">old</span>
+</pre></div></div></div><div class="slide"><div class="container"><h1>Ruby &#233; divertido!</h1><ul><li>Escreva DSL nele</li><li>Fun&#231;&#245;es an&#244;nimas</li><li>Sintaxe Natural</li><li>Rails, Merb, Sinatra, Markaby, Grit, Rake...</li></ul></div></div><div class="slide"><div class="container"><center><img src="assets/vodka.jpg"/></center></div></div><div class="slide" style="background-image:url(assets/mafia.jpg);
+  background-repeat: no-repeat;
+background-attachment:fixed;
+background-position: top center
+  "><div class="container"><h1>Perguntas?</h1></div></div><div class="slide"><div class="container"><h1>Obrigado!</h1><div><p>Links:</p><ul><li>Meus projetos OpenSource http://github.com/bastos</li><li>Gary Presentation Builder http://github.com/bastos/gary</li><li>Frustation by http://xkcd.com/457/</li><li>Sinatra http://github.com/bmizerany/sinatra/tree/master</li><li>Isaac http://github.com/ichverstehe/isaac</li></ul></div></div></div></div></body></html>
