@@ -1,25 +1,19 @@
-Onde está meu método?
-=====================
+=== Onde está meu método?
 
 Slide e scripts exemplo da apresentação que fiz no Ceará On Rails
 
-
-Como usar?
-==========
+==== Como usar?
 
     gary -r ceara_on_rails.rb
 
 Isso vai gerar um ceara_on_rails.html
 
-Dependências
-============
+==== Dependências
 
 Estes slides foram feitos usando o Gary:
 http://github.com/bastos/gary/tree/master
 
-
-Licença
-=======
+==== Licença
 
 LICENÇA PÚBLICA CREATIVE COMMONS
 
