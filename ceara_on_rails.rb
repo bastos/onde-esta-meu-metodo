@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-# TODO: aliases
-# TODO: yield
-# TODO: Sobrecarga de oberadores, syntax sugar...
 presentation :title => "Ruby - Onde está meu método? - Ceará on Rails" do
   slide do
     center do 

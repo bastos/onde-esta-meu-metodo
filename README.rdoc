@@ -1,0 +1,28 @@
+Onde está meu método?
+=====================
+
+Slide e scripts exemplo da apresentação que fiz no Ceará On Rails
+
+
+Como usar?
+==========
+
+    gary -r ceara_on_rails.rb
+
+Isso vai gerar um ceara_on_rails.html
+
+Dependências
+============
+
+Estes slides foram feitos usando o Gary:
+http://github.com/bastos/gary/tree/master
+
+
+Licença
+=======
+
+LICENÇA PÚBLICA CREATIVE COMMONS
+
+Atribuição-Uso Não-Comercial 2.5 Brasil
+
+http://creativecommons.org/licenses/by-nc/2.5/br/
